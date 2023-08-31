@@ -25,7 +25,6 @@ export
         {
             "id": 8,
             "parent": 4,
-            "droppable": true,
             "text": ""
         },
         {

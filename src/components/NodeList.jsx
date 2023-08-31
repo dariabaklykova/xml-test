@@ -23,6 +23,10 @@ export const NodeList = ({ nodes = [] }) => {
                 draggingSource: { opacity: .3 },
                 dropTarget: { backgroundColor: '#3e5a8a' }
             }}
+            dragPreviewRender={({ item, isDragging, onToggle, isOpen, depth }) =>
+                < CustomNode node={item} isOpen={isOpen} depth={depth} onToggle={onToggle} isDragging={isDragging} />
+            }
+            initialOpen={true}
         />
     </DndProvider>
 }

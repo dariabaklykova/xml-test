@@ -5,7 +5,7 @@ import Box from '@mui/material/Box'
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
-export const CustomNode = ({ node: { id, droppable, parent }, onToggle, depth, isOpen }) => {
+export const CustomNode = ({ node: { id, droppable, parent }, onToggle, depth, isOpen, isDragging }) => {
     const handleToggle = (e) => {
         e.stopPropagation();
         onToggle(id);
@@ -17,16 +17,17 @@ export const CustomNode = ({ node: { id, droppable, parent }, onToggle, depth, i
     const background = useMemo(() => depth ? '#fafafa' : '#ffffff', [depth])
 
     return (
-        <Box sx={{ background, filter: `brightness(${filter})`, mt: !depth ? '16px' : '0px' }}>
+        <Box sx={{ background: isDragging ? '#e3eaec' : background, filter: `brightness(${filter})`, mt: !depth ? '16px' : '0px' }} onClick={handleToggle}>
             {droppable ? (
-                <ListItemButton onClick={onToggle} sx={{
-                    background: '#fafafa', filter: `brightness(${filter})`, pl
+                <ListItemButton onClick={handleToggle} sx={{
+                    background: isDragging ? '#e3eaec' : '#fafafa', filter: `brightness(${filter})`, pl, '&:hover': { cursor: 'grab' }
                 }}>
                     <ListItemText primary={`id ${id} parent ${parent}`} />
                     {isOpen ? <ExpandLess /> : <ExpandMore />}
                 </ListItemButton>
             ) :
-                < ListItemText primary={`id ${id} parent ${parent}`} sx={{ padding: '8px 16px', margin: 0, ml }} />}
-        </Box>
+                < ListItemText primary={`id ${id} parent ${parent}`} sx={{ padding: '8px 16px', margin: 0, ml }} onClick={onToggle} />
+            }
+        </Box >
     );
 };
