@@ -9,7 +9,23 @@ import { DndProvider } from "react-dnd";
 
 export const NodeList = ({ nodes = [] }) => {
     const [treeData, setTreeData] = useState(nodes);
-    const handleDrop = (newTreeData) => setTreeData(newTreeData)
+
+    const handleDrop = (newTreeData) => {
+        for (const item of newTreeData) {
+            delete item.droppable;
+        }
+
+        for (const item of newTreeData) {
+            for (const possibleChild of newTreeData) {
+                if (possibleChild.parent === item.id) {
+                    item.droppable = true;
+                    break;
+                }
+            }
+        }
+
+        setTreeData(newTreeData)
+    }
 
     return <DndProvider backend={MultiBackend} options={getBackendOptions()}>
         <Tree
