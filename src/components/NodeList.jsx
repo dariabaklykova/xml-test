@@ -19,6 +19,10 @@ export const NodeList = ({ nodes = [] }) => {
             render={(node, { depth, isOpen, onToggle }) =>
                 <CustomNode node={node} depth={depth} onToggle={onToggle} isOpen={isOpen} />
             }
+            classes={{
+                draggingSource: { opacity: .3 },
+                dropTarget: { backgroundColor: '#3e5a8a' }
+            }}
         />
     </DndProvider>
 }
